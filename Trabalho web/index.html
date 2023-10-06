@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="main.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <img class="imgCasa" src="casa.jpg" alt="imóvel">
+        <h1>Imobiliária </h1>
+    </header>
+
+    <main class="row">
+            <div class="col-md-5 divForm">
+                <div class="row">
+                    <h3 class="col-md-12">Formulário do imóvel</h3>
+
+                    <div class="col-md-12 faixa">
+                        <ul>
+                            <li id="liCasa" onClick="funCasa()">Casa</li>
+                            <li id="liAp" onClick="funAp()">Apartamento</li>
+                        </ul>
+                    </div>
+
+                    <div class="col-md-12 marginTop">
+                        <label for="inputTitulo">Título</label>
+                        <br>
+                        <input type="text" id="inputTitulo" style="width: 100%;"> 
+                    </div>
+
+                    <div class="col-md-6 marginTop">
+                        <label for="inputRua">Rua</label>
+                        <br>
+                        <input type="text" id="inputRua">
+                    </div>
+    
+                    <div class="col-md-3 marginTop">
+                        <label for="inputNumero">Número</label>
+                        <br>
+                        <input type="text" id="inputNumero">
+                    </div>
+
+                    <div class="col-md-3 marginTop">
+                        <label for="inputBairro">Bairro</label>
+                        <br>
+                        <input type="text" id="inputBairro">
+                    </div>
+
+                    <div class="col-md-3 marginTop">
+                        <label for="inputCep">CEP</label>
+                        <br>
+                        <input type="text" id="inputCep">
+                    </div>
+
+                    <div class="col-md-2 marginTop">
+                        <label for="inputQuartos">Quartos</label>
+                        <br>
+                        <input type="number" id="inputQuartos">
+                    </div>
+
+                    <div class="col-md-2 marginTop">
+                        <label for="inputBanheiros">Banheiros</label>
+                        <br>
+                        <input type="number" id="inputBanheiros">
+                    </div>
+
+                    <div class="col-md-3 marginTop">
+                        <label for="inputGaragem">Garagem</label>
+                        <br>
+                        <input type="text" id="inputGaragem">
+                    </div>
+                
+
+                    <div class="col-md-2 marginTop">
+                        <label for="inputPreco">Preço</label>
+                        <br>
+                        <input type="number" id="inputPreco">
+                    </div>
+
+                    <div class="col-md-2 marginTop">
+                        <label for="inputAreaTerreno">Área Terreno</label>
+                        <br>
+                        <input type="text" id="inputAreaTerreno">
+                    </div>
+
+
+                    <div class="col-md-2 marginTop">
+                        <label for="inputAreaContruida">Área contruída</label>
+                        <br>
+                        <input type="text" id="inputAreaConstruida">
+                    </div>
+
+                    <div class="col-md-2 marginTop">
+                        <label for="inputMetragem">Metragem</label>
+                        <br>
+                        <input type="number" id="inputMetragem">
+                    </div>
+
+                    <div class="col-md-2 marginTop">
+                        <label for="inputCondominio">Condomínio</label>
+                        <br>
+                        <input type="number" id="inputCondominio">
+                    </div>
+
+
+                    <div class="col-md-4 marginTop">
+                        <button class="btn-primary" onclick="salvar()">Salvar</button>
+                        &nbsp;
+                        <button id="btnEditar" disabled="true" class="btn-secondary" onclick="confirmarEditar()">Confirmar Edição</button>
+                    </div>
+                </div>
+                
+            </div>
+
+
+            <div id="divSalvos" class="col-md-5 divForm2">  
+         
+            </div>
+    </main>
+    
+    <footer>
+
+    </footer>
+</body>
+</html>
