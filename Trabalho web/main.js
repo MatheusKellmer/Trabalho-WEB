@@ -5,7 +5,7 @@ var imoveisSalvos = [];
 var indexEditar = null;
 
 class Imovel {
-    constructor(rua, numero, bairro, cep, titulo, quartos, banheiros, garagem, preco, tipo) {
+    constructor(rua, numero, bairro, cep, titulo, quartos, banheiros, garagem, preco, tipo, imagem) {
         this.rua = rua;
         this.numero = numero;
         this.bairro = bairro;
@@ -16,21 +16,22 @@ class Imovel {
         this.garagem = garagem;
         this.preco = preco;
         this.tipo = tipo;
+        this.imagem = imagem;
     }
 }
 
 
 class Casa extends Imovel {
-    constructor(rua, numero, bairro, cep, titulo, quartos, banheiros, garagem, preco, tipo, areaTerreno, areaConstruida) {
-        super(rua, numero, bairro, cep, titulo, quartos, banheiros, garagem, preco, tipo);
+    constructor(rua, numero, bairro, cep, titulo, quartos, banheiros, garagem, preco, tipo, imagem, areaTerreno, areaConstruida) {
+        super(rua, numero, bairro, cep, titulo, quartos, banheiros, garagem, preco, tipo, imagem);
         this.areaTerreno = areaTerreno;
         this.areaConstruida = areaConstruida;
     }
 }
 
 class Apartamento extends Imovel {
-    constructor(rua, numero, bairro, cep, titulo, quartos, banheiros, garagem, preco, tipo, metragem, condominio) {
-        super(rua, numero, bairro, cep, titulo, quartos, banheiros, garagem, preco, tipo);
+    constructor(rua, numero, bairro, cep, titulo, quartos, banheiros, garagem, preco, tipo, imagem, metragem, condominio) {
+        super(rua, numero, bairro, cep, titulo, quartos, banheiros, garagem, preco, tipo, imagem);
         this.metragem = metragem;
         this.condominio = condominio;
     }
@@ -105,18 +106,19 @@ function salvar() {
     let banheiros = document.querySelector('#inputBanheiros').value;
     let preco = document.querySelector('#inputPreco').value;
     let titulo = document.querySelector('#inputTitulo').value;
+    let imagem = document.querySelector('#inputImagem').value;
 
     if (verifyCasa) {
         let areaConstruida = document.getElementById('inputAreaConstruida').value;
         let areaTerreno = document.getElementById('inputAreaTerreno').value;
-        let casaLocal = new Casa(rua, numero, bairro, cep, titulo, quartos, banheiros, garagem, preco, 'casa', areaTerreno, areaConstruida);
+        let casaLocal = new Casa(rua, numero, bairro, cep, titulo, quartos, banheiros, garagem, preco, 'casa', imagem, areaTerreno, areaConstruida);
         imoveis.push(casaLocal);
         imoveisSalvos = localStorage.setItem('imovel', JSON.stringify(imoveis));
 
     } else {
         let metragem = document.getElementById('inputMetragem').value;
         let condominio = document.getElementById('inputCondominio').value;
-        let apLocal = new Apartamento(rua, numero, bairro, cep, titulo, quartos, banheiros, garagem, preco, 'apartamento', metragem, condominio)
+        let apLocal = new Apartamento(rua, numero, bairro, cep, titulo, quartos, banheiros, garagem, preco, 'apartamento', imagem, metragem, condominio)
         imoveis.push(apLocal);
         imoveisSalvos = localStorage.setItem('imovel', JSON.stringify(imoveis));
     }
@@ -131,6 +133,13 @@ function salvar() {
     let pcep = document.createElement('p');
     let pbanheiros = document.createElement('p');
     let ppreco = document.createElement('p');
+    let pclass1 = document.createElement('p');
+    let pclass2 = document.createElement('p');
+
+
+    let img = document.createElement('img');
+    img.classList.add('imgUser')
+    img.setAttribute('src', imagem);
 
     title.textContent = titulo;
     prua.textContent = 'Rua: ' + rua;
@@ -150,7 +159,22 @@ function salvar() {
     pnnumero.classList.add('col-md-6');
     pcep.classList.add('col-md-6');
     pbanheiros.classList.add('col-md-6');
-    ppreco.classList.add('col-md-6')
+    ppreco.classList.add('col-md-6');
+    pclass1.classList.add('col-md-6');
+    pclass2.classList.add('col-md-6');
+
+
+    if(!verifyCasa){
+        let metragem = document.getElementById('inputMetragem').value;
+        let condominio = document.getElementById('inputCondominio').value;
+        pclass1.textContent = 'Condomínio: ' + condominio
+        pclass2.textContent = 'Metragem: ' + metragem
+    }else{
+        let areaConstruida = document.getElementById('inputAreaConstruida').value;
+        let areaTerreno = document.getElementById('inputAreaTerreno').value;
+        pclass1.textContent = 'Terreno: ' + areaTerreno
+        pclass2.textContent = 'Construida: ' + areaConstruida
+    }
 
     cartao.appendChild(title);
     cartao.appendChild(prua);
@@ -161,6 +185,9 @@ function salvar() {
     cartao.appendChild(pcep);
     cartao.appendChild(pbanheiros);
     cartao.appendChild(ppreco);
+    cartao.appendChild(pclass1);
+    cartao.appendChild(pclass2);
+    cartao.appendChild(img);
 
     cartao.classList.add('cartao');
     cartao.classList.add('row')
@@ -243,6 +270,7 @@ function editar(event) {
     document.querySelector('#inputBanheiros').value = imoveis[index].banheiros;
     document.querySelector('#inputPreco').value = imoveis[index].preco;
     document.querySelector('#inputTitulo').value = imoveis[index].titulo;
+    document.querySelector('#inputImagem').value = imoveis[index].imagem;
 
    let btn =  document.querySelector('#btnEditar');
    btn.disabled = false;
@@ -262,6 +290,7 @@ function confirmarEditar(){
     imoveis[indexEditar].banheiros = document.querySelector('#inputBanheiros').value;
     imoveis[indexEditar].preco = document.querySelector('#inputPreco').value;
     imoveis[indexEditar].titulo = document.querySelector('#inputTitulo').value;
+    imoveis[indexEditar].imagem = document.querySelector('#inputImagem').value;
 
     localStorage.setItem('imovel', JSON.stringify(imoveis))
     window.location.reload()
@@ -291,6 +320,11 @@ function carregaSalvos() {
             let pcep = document.createElement('p');
             let pbanheiros = document.createElement('p');
             let ppreco = document.createElement('p');
+            let pclass1 = document.createElement('p');
+            let pclass2 = document.createElement('p');
+            let img = document.createElement('img');
+            img.classList.add('imgUser')
+            img.setAttribute('src', element.imagem);
 
             title.textContent = element.titulo;
             prua.textContent = 'Rua: ' + element.rua;
@@ -301,6 +335,8 @@ function carregaSalvos() {
             pcep.textContent = 'Cep: ' + element.cep;
             pbanheiros.textContent = 'Banheiros: ' + element.banheiros;
             ppreco.textContent = 'Preco: ' + element.preco;
+  
+            
 
             title.classList.add('col-md-12');
             prua.classList.add('col-md-6');
@@ -310,7 +346,21 @@ function carregaSalvos() {
             pnnumero.classList.add('col-md-6');
             pcep.classList.add('col-md-6');
             pbanheiros.classList.add('col-md-6');
-            ppreco.classList.add('col-md-6')
+            ppreco.classList.add('col-md-6');
+            pclass1.classList.add('col-md-6');
+            pclass2.classList.add('col-md-6');
+
+            if(!verifyCasa){
+                let metragem = document.getElementById('inputMetragem').value;
+                let condominio = document.getElementById('inputCondominio').value;
+                pclass1.textContent = 'Condomínio: ' + condominio
+                pclass2.textContent = 'Metragem: ' + metragem
+            }else{
+                let areaConstruida = document.getElementById('inputAreaConstruida').value;
+                let areaTerreno = document.getElementById('inputAreaTerreno').value;
+                pclass1.textContent = 'Terreno: ' + areaTerreno
+                pclass2.textContent = 'Construida: ' + areaConstruida
+            }
 
             cartao.appendChild(title);
             cartao.appendChild(prua);
@@ -321,6 +371,11 @@ function carregaSalvos() {
             cartao.appendChild(pcep);
             cartao.appendChild(pbanheiros);
             cartao.appendChild(ppreco);
+            cartao.appendChild(pclass1);
+            cartao.appendChild(pclass2);
+            cartao.appendChild(img)
+
+    
 
             cartao.classList.add('cartao');
             cartao.classList.add('row')
@@ -346,3 +401,4 @@ function carregaSalvos() {
         });
     }
 }
+
